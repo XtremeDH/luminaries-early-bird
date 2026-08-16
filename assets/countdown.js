@@ -1,5 +1,5 @@
-// Early Bird deadline: 30 August 2026, 23:59 CEST (UTC+2).
-const DEADLINE = new Date('2026-08-30T23:59:59+02:00');
+// Early Bird deadline: 31 August 2026, 23:59 CEST (UTC+2).
+const DEADLINE = new Date('2026-08-31T23:59:59+02:00');
 
 function renderCountdown() {
   const diff = DEADLINE.getTime() - Date.now();
