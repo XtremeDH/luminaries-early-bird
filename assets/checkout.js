@@ -1,10 +1,75 @@
-// Early Bird pass, VAT included. 20% off the regular EUR 1,110 rate.
+// Early Bird pass, VAT included. 20% off the regular EUR 1,110 rate, unlocked by email.
 const PASS_PRICE = 888;
 const PASS_REGULAR = 1110;
 const CHILD_PRICE = 650;
+const UNLOCK_KEY = 'lum-earlybird-email';
 
 const eur = (n) =>
   '€' + n.toLocaleString('en-GB', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+
+/* ------------------------------------------------- email unlock ------- */
+
+const unlockForm = document.querySelector('[data-unlock-form]');
+const unlockDone = document.querySelector('[data-unlock-done]');
+const lockCard = document.querySelector('[data-lock]');
+const unlockError = document.querySelector('[data-unlock-error]');
+
+let unlockedEmail = null;
+try {
+  unlockedEmail = localStorage.getItem(UNLOCK_KEY);
+} catch (e) {
+  unlockedEmail = null;
+}
+
+const isUnlocked = () => Boolean(unlockedEmail);
+const passRate = () => (isUnlocked() ? PASS_PRICE : PASS_REGULAR);
+
+function paintLockState() {
+  const open = isUnlocked();
+
+  document.body.dataset.earlyBird = open ? 'unlocked' : 'locked';
+  if (lockCard) lockCard.toggleAttribute('data-locked', !open);
+  if (unlockForm) unlockForm.hidden = open;
+  if (unlockDone) unlockDone.hidden = !open;
+
+  document.querySelectorAll('[data-unlock-email]').forEach((el) => {
+    el.textContent = unlockedEmail || '';
+  });
+  document.querySelectorAll('[data-lockable]').forEach((el) => {
+    el.setAttribute('aria-hidden', String(!open));
+  });
+}
+
+if (unlockForm) {
+  unlockForm.addEventListener('submit', (e) => {
+    e.preventDefault();
+    const input = unlockForm.querySelector('input[type="email"]');
+    const value = input.value.trim();
+
+    if (!value || !input.checkValidity()) {
+      unlockError.hidden = false;
+      input.classList.add('is-invalid');
+      input.focus();
+      return;
+    }
+
+    unlockError.hidden = true;
+    input.classList.remove('is-invalid');
+    unlockedEmail = value;
+    try {
+      localStorage.setItem(UNLOCK_KEY, value);
+    } catch (err) {
+      /* storage unavailable, discount still applies for this visit */
+    }
+
+    paintLockState();
+    document.dispatchEvent(new CustomEvent('earlybird:unlocked'));
+  });
+}
+
+paintLockState();
+
+/* ------------------------------------------------- booking builder ---- */
 
 const form = document.getElementById('checkout-form');
 if (form) {
@@ -14,11 +79,14 @@ if (form) {
   const passOnly = form.querySelector('[data-passonly]');
   const passCount = document.getElementById('pass-count');
   const guestFields = form.querySelector('[data-guest-fields]');
+  const buyerEmail = document.getElementById('buyer-email');
+  const emailError = form.querySelector('[data-email-error]');
   const linesEl = form.querySelector('[data-lines]');
   const totalEl = form.querySelector('[data-total]');
   const savingEl = form.querySelector('[data-saving]');
   const confirmBtn = form.querySelector('[data-confirm]');
   const confirmHint = form.querySelector('[data-confirm-hint]');
+  const passNote = form.querySelector('[data-pass-note]');
   const stickyTotal = document.querySelector('[data-sticky-total]');
 
   const state = {
@@ -103,11 +171,16 @@ if (form) {
         lines.push(line(`Children under 2 × ${state.qty.infants}`, 'No extra cost', 'Free', true));
       }
     } else {
-      total = PASS_PRICE * state.passes;
-      saved = (PASS_REGULAR - PASS_PRICE) * state.passes;
+      const rate = passRate();
+      total = rate * state.passes;
+      saved = (PASS_REGULAR - rate) * state.passes;
 
       lines.push(
-        line(`Early Bird summit pass × ${state.passes}`, `20% off ${eur(PASS_REGULAR)} each`, eur(total))
+        line(
+          `${isUnlocked() ? 'Early Bird' : 'Regular'} summit pass × ${state.passes}`,
+          isUnlocked() ? `20% off ${eur(PASS_REGULAR)} each` : `${eur(rate)} each · unlock 20% off above`,
+          eur(total)
+        )
       );
       lines.push(line('Accommodation', 'Removed from this booking', 'Not included', true));
     }
@@ -116,15 +189,25 @@ if (form) {
     totalEl.textContent = eur(total);
     if (stickyTotal) stickyTotal.textContent = eur(total);
 
+    if (passNote) {
+      passNote.textContent = isUnlocked()
+        ? `Early Bird pass at ${eur(PASS_PRICE)} each, VAT included. Accommodation not included.`
+        : `Regular pass at ${eur(PASS_REGULAR)} each. Unlock the 20% Early Bird discount above to pay ${eur(PASS_PRICE)}.`;
+    }
+
     savingEl.hidden = saved <= 0;
     if (saved > 0) savingEl.textContent = `You save ${eur(saved)}`;
 
     renderGuestFields(adults);
 
-    const ready = terms.checked;
+    const emailOk = buyerEmail.value.trim() !== '' && buyerEmail.checkValidity();
+    const ready = terms.checked && emailOk;
     confirmBtn.setAttribute('aria-disabled', String(!ready));
     confirmBtn.classList.toggle('is-disabled', !ready);
     confirmHint.hidden = ready;
+    confirmHint.textContent = !emailOk
+      ? 'Add your email address to continue.'
+      : 'Accept the terms to continue.';
   }
 
   function setAccomVisibility() {
@@ -138,6 +221,20 @@ if (form) {
   });
 
   terms.addEventListener('change', render);
+
+  document.addEventListener('earlybird:unlocked', () => {
+    if (!buyerEmail.value.trim() && unlockedEmail) buyerEmail.value = unlockedEmail;
+    render();
+  });
+
+  if (unlockedEmail && !buyerEmail.value.trim()) buyerEmail.value = unlockedEmail;
+
+  buyerEmail.addEventListener('input', render);
+  buyerEmail.addEventListener('blur', () => {
+    const invalid = buyerEmail.value.trim() !== '' && !buyerEmail.checkValidity();
+    emailError.hidden = !invalid;
+    buyerEmail.classList.toggle('is-invalid', invalid);
+  });
 
   form.addEventListener('change', (e) => {
     if (e.target.name === 'room' || e.target.name === 'stay-type') render();
@@ -175,7 +272,8 @@ if (form) {
   confirmBtn.addEventListener('click', (e) => {
     if (confirmBtn.getAttribute('aria-disabled') === 'true') {
       e.preventDefault();
-      terms.focus();
+      const target = buyerEmail.checkValidity() && buyerEmail.value.trim() ? terms : buyerEmail;
+      target.focus();
     }
   });
 

@@ -502,6 +502,124 @@ p { margin: 0 0 1.1em; }
 }
 .pricecard__note strong { color: var(--fg); font-weight: 600; }
 
+/* --------------------------------------------------------- email unlock */
+
+.pricecard[data-locked] [data-lockable] {
+  filter: blur(11px);
+  opacity: 0.55;
+  user-select: none;
+  pointer-events: none;
+}
+
+/* While locked the regular rate is the live price, so it must not read as struck through. */
+[data-early-bird="locked"] .price--was {
+  text-decoration: none;
+  color: var(--fg);
+}
+[data-early-bird="locked"] .section--reserve .price--was { color: var(--cream); }
+[data-early-bird="locked"] .section--reserve [data-lockable],
+[data-early-bird="locked"] .reserve__unit { display: none; }
+
+[data-lockable] {
+  transition: filter 500ms var(--ease), opacity 500ms var(--ease);
+}
+
+.unlock {
+  margin-bottom: calc(var(--step) * 4);
+  text-align: left;
+}
+.unlock[hidden] { display: none; }
+
+.unlock__pitch {
+  display: block;
+  text-align: center;
+  font-size: 1.05rem;
+  line-height: 1.6;
+  margin: 0 0 calc(var(--step) * 2);
+}
+.unlock__pitch strong { font-weight: 600; }
+
+.unlock__icon {
+  display: inline-block;
+  vertical-align: -1px;
+  width: 14px;
+  height: 12px;
+  margin-right: 10px;
+  border: 1.5px solid var(--accent);
+  border-radius: 2px;
+  position: relative;
+}
+.unlock__icon::before {
+  content: "";
+  position: absolute;
+  left: 2px;
+  bottom: 10px;
+  width: 8px;
+  height: 7px;
+  border: 1.5px solid var(--accent);
+  border-bottom: 0;
+  border-radius: 5px 5px 0 0;
+}
+.unlock__icon--done { border-color: var(--accent); background: var(--accent); }
+.unlock__icon--done::before { left: 6px; border-radius: 5px 5px 0 0; }
+
+.unlock__row {
+  display: grid;
+  gap: 10px;
+}
+@media (min-width: 560px) {
+  .unlock__row { grid-template-columns: minmax(0, 1fr) auto; }
+}
+
+.unlock__field { display: block; }
+.unlock__field input {
+  width: 100%;
+  min-height: 52px;
+  padding: 14px 16px;
+  font-family: var(--serif);
+  font-size: 16px;
+  color: var(--fg);
+  background: var(--bg);
+  border: 1px solid var(--hairline);
+  border-radius: 0;
+}
+.unlock__field input:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+.unlock__field input.is-invalid { border-color: #c0392b; }
+
+.unlock__error {
+  margin: 8px 0 0;
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: #c0392b;
+}
+.unlock__error[hidden] { display: none; }
+
+.unlock__micro {
+  margin: calc(var(--step) * 1.5) 0 0;
+  font-family: var(--mono);
+  font-size: 9px;
+  line-height: 1.8;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--fg-soft);
+  text-align: center;
+}
+
+.unlock--done { border: 1px solid var(--accent); padding: calc(var(--step) * 2.5); }
+.unlock__pitch--done { margin-bottom: 0; }
+
+.unlock__code {
+  font-family: var(--mono);
+  font-size: 0.85em;
+  letter-spacing: 0.14em;
+  padding: 3px 8px;
+  margin-left: 4px;
+  border: 1px dashed var(--accent);
+  color: var(--accent);
+}
+
 .pricecard__micro {
   font-family: var(--mono);
   font-size: 10px;
@@ -929,6 +1047,36 @@ p { margin: 0 0 1.1em; }
 
 /* buyer information */
 
+.buyer {
+  display: grid;
+  gap: 10px;
+  margin-bottom: calc(var(--step) * 2);
+}
+
+@media (min-width: 640px) {
+  .buyer { grid-template-columns: 1fr 1fr; }
+  .buyer > :first-child { grid-column: 1 / -1; }
+}
+
+.field__sub {
+  font-family: var(--mono);
+  font-size: 10px;
+  font-weight: 400;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--fg-soft);
+  margin: calc(var(--step) * 4) 0 calc(var(--step) * 1.5);
+}
+
+.field__error {
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: #c0392b;
+}
+.field__error[hidden] { display: none; }
+
 .guests {
   display: grid;
   gap: 10px;
@@ -947,6 +1095,10 @@ p { margin: 0 0 1.1em; }
   text-transform: uppercase;
   color: var(--fg-soft);
 }
+.guests__row span em {
+  font-style: normal;
+  opacity: 0.6;
+}
 .guests__row input {
   width: 100%;
   min-height: 48px;
@@ -959,6 +1111,7 @@ p { margin: 0 0 1.1em; }
   border-radius: 0;
 }
 .guests__row input:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+.guests__row input.is-invalid { border-color: #c0392b; }
 
 .consent {
   display: flex;

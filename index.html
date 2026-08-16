@@ -36,7 +36,7 @@
 
     <p class="hero__sub">
       Early Bird pricing is available <strong>only until August 30</strong> -
-      20% off the summit pass, with all-in accommodation packages included.
+      unlock 20% off the summit pass with your email, accommodation packages included.
     </p>
 
     <!-- Countdown -->
@@ -62,10 +62,10 @@
     <h2 class="h2">Early Bird, extended</h2>
     <p class="lede lede--center">Summit pass, before you add where you sleep.</p>
 
-    <div class="pricecard">
+    <div class="pricecard" data-lock>
       <div class="pricecard__row">
         <span class="price price--was"><span class="sr-only">Regular price</span>€1,110</span>
-        <span class="price price--now"><span class="sr-only">Early Bird price</span>€888</span>
+        <span class="price price--now" data-lockable><span class="sr-only">Early Bird price</span>€888</span>
       </div>
 
       <p class="pricecard__badges">
@@ -76,6 +76,37 @@
       <p class="pricecard__valid">Valid until August 30</p>
 
       <div class="rule" aria-hidden="true"><span class="rule__gem"></span></div>
+
+      <!-- Locked state: email unlocks the Early Bird rate -->
+      <form class="unlock" data-unlock-form novalidate>
+        <p class="unlock__pitch">
+          <span class="unlock__icon" aria-hidden="true"></span>
+          Enter your email to unlock the <strong>20% Early Bird discount</strong>.
+        </p>
+        <div class="unlock__row">
+          <label class="unlock__field">
+            <span class="sr-only">Email address</span>
+            <input type="email" name="unlock-email" id="unlock-email" autocomplete="email"
+                   inputmode="email" placeholder="you@example.com" required
+                   aria-describedby="unlock-error" />
+          </label>
+          <button type="submit" class="btn btn--solid">Unlock 20% off</button>
+        </div>
+        <p class="unlock__error" id="unlock-error" data-unlock-error hidden>Enter a valid email address.</p>
+        <p class="unlock__micro">
+          One email, the discount code, and nothing else you did not ask for.
+        </p>
+      </form>
+
+      <div class="unlock unlock--done" data-unlock-done hidden>
+        <p class="unlock__pitch unlock__pitch--done">
+          <span class="unlock__icon unlock__icon--done" aria-hidden="true"></span>
+          Discount unlocked. Your code is <code class="unlock__code">EARLYBIRD20</code>
+        </p>
+        <p class="unlock__micro">
+          Sent to <span data-unlock-email></span>. It is already applied to the prices below.
+        </p>
+      </div>
 
       <p class="pricecard__note">
         That is the pass on its own, for anyone staying nearby. Every accommodation
@@ -382,12 +413,32 @@
             <output class="stepper__val" id="pass-count" aria-live="polite">1</output>
             <button type="button" class="stepper__btn" data-step="1" aria-label="Add one pass">+</button>
           </div>
-          <p class="field__note">Early Bird pass at €888 each, VAT included. Accommodation not included.</p>
+          <p class="field__note" data-pass-note>Early Bird pass at €888 each, VAT included. Accommodation not included.</p>
         </fieldset>
 
         <fieldset class="field">
           <legend class="field__legend"><span class="field__step">05</span> Buyer information</legend>
 
+          <div class="buyer">
+            <label class="guests__row">
+              <span>Full name</span>
+              <input type="text" id="buyer-name" name="buyer-name" autocomplete="name" placeholder="Your full name" required />
+            </label>
+            <label class="guests__row">
+              <span>Email address</span>
+              <input type="email" id="buyer-email" name="buyer-email" autocomplete="email"
+                     inputmode="email" placeholder="you@example.com" required aria-describedby="email-hint" />
+              <span class="field__error" id="email-hint" data-email-error hidden>Enter a valid email address.</span>
+            </label>
+            <label class="guests__row">
+              <span>Phone <em>optional</em></span>
+              <input type="tel" id="buyer-phone" name="buyer-phone" autocomplete="tel" placeholder="+385 91 000 0000" />
+            </label>
+          </div>
+
+          <p class="field__note">Your booking confirmation and passes are sent to this address.</p>
+
+          <h4 class="field__sub">Pass holders</h4>
           <div class="guests" data-guest-fields></div>
 
           <label class="consent">
@@ -542,7 +593,7 @@
     </p>
     <p class="reserve__price">
       <span class="price price--was price--sm">€1,110</span>
-      <span class="price price--now price--sm">€888</span>
+      <span class="price price--now price--sm" data-lockable>€888</span>
       <span class="reserve__unit">pass only, 20% off, VAT included</span>
     </p>
     <p class="reserve__from">Accommodation packages from <strong>€1,777.00</strong> for 6 nights, pass included.</p>
