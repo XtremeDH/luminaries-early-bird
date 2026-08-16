@@ -506,9 +506,30 @@
 <!-- ============================ LAST YEAR ============================ -->
 <section class="section section--relive" id="relive">
   <div class="wrap">
-    <p class="eyebrow">Relive last year</p>
+    <p class="eyebrow">In their words</p>
     <h2 class="h2">A glimpse into the 2025 edition</h2>
     <p class="lede">Six days where forest meets the Adriatic, and a community that keeps returning.</p>
+  </div>
+
+  <div class="wrap">
+    <!-- Facade player: set data-video-id to the YouTube ID and the iframe loads on click. -->
+    <figure class="film" data-film data-video-id="">
+      <div class="film__frame">
+        <img class="film__poster"
+             src="https://luminaries.earth/images/home-booking-hero.jpg"
+             alt="The founders on stage at the 2025 edition" loading="lazy" decoding="async" />
+        <button type="button" class="film__play" data-film-play hidden>
+          <span class="film__glyph" aria-hidden="true"></span>
+          <span class="film__playLabel">Play the film</span>
+          <span class="film__dur">1:20</span>
+        </button>
+        <p class="film__soon" data-film-soon>Film lands soon</p>
+      </div>
+      <figcaption class="film__caption">
+        <span class="film__who">The founders</span>
+        <span class="film__what">Why we built Luminaries, and what happens in those six days.</span>
+      </figcaption>
+    </figure>
   </div>
 
   <!-- TODO: swap these for real 2025 footage once the library is available -->
@@ -628,5 +649,6 @@
 
 <script src="assets/countdown.js" defer></script>
 <script src="assets/checkout.js" defer></script>
+<script src="assets/film.js" defer></script>
 </body>
 </html>
