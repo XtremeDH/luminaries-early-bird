@@ -40,11 +40,21 @@
 }
 .page-clarity .btn--ghost:hover { border-color: var(--fg); background: rgba(234, 229, 214, 0.06); }
 
-.btn--gold {
-  --btn-fg: var(--gold);
-  border-color: var(--gold) !important;
+/* Primary action. Outlined per the brief, but gold so it carries on navy. */
+.page-clarity .btn--gold {
+  --btn-fg: #f3e2be;
+  border-color: var(--gold);
+  box-shadow: inset 0 0 0 1px rgba(201, 168, 106, 0.35);
+  background: rgba(201, 168, 106, 0.1);
 }
-.btn--gold:hover { background: rgba(201, 168, 106, 0.12) !important; }
+.page-clarity .btn--gold:hover {
+  --btn-fg: var(--navy-0);
+  background: var(--gold);
+  border-color: var(--gold);
+  box-shadow: none;
+}
+
+.page-clarity [data-continue] { min-height: 60px; letter-spacing: 0.26em; }
 
 /* --------------------------------------------------------- hero */
 
