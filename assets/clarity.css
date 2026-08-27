@@ -153,17 +153,26 @@
 
 .reel {
   display: grid;
+  gap: calc(var(--step) * 3);
   justify-items: center;
-  gap: calc(var(--step) * 2);
+  text-align: center;
 }
 
-.reel__eyebrow { text-align: center; }
+@media (min-width: 700px) {
+  .reel {
+    grid-template-columns: 260px minmax(0, 1fr);
+    gap: calc(var(--step) * 5);
+    align-items: center;
+    justify-items: start;
+    text-align: left;
+  }
+}
 
 /* Vertical 9:16 stays capped so it never dominates the page. */
 .film--reel {
   margin: 0;
   width: 100%;
-  max-width: 300px;
+  max-width: 260px;
 }
 .film--reel .film__frame { aspect-ratio: 9 / 16; }
 .film--reel .film__glyph { width: 60px; height: 60px; }
@@ -174,8 +183,26 @@
 .page-clarity .film__play:hover .film__glyph::before { border-left-color: var(--navy-0); }
 .page-clarity .film__play:focus-visible { outline-color: var(--gold); }
 
+.reel__copy { min-width: 0; }
+
+.reel__title {
+  font-family: var(--display);
+  font-weight: 400;
+  font-size: clamp(1.5rem, 4.2vw, 2rem);
+  line-height: 1.2;
+  letter-spacing: 0.05em;
+  margin: calc(var(--step) * 1.5) 0 calc(var(--step) * 2);
+}
+
+.reel__text {
+  color: var(--fg-soft);
+  max-width: 38ch;
+  margin: 0;
+}
+
 .reel__ig {
   display: inline-block;
+  margin-top: calc(var(--step) * 2.5);
   font-family: var(--mono);
   font-size: 10px;
   letter-spacing: 0.2em;
