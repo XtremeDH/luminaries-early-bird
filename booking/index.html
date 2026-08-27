@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Book a Clarity Call - Luminaries Summit 2026</title>
+<meta name="description" content="A 15 minute one on one call with the Luminaries team. Whatever is still sitting between you and a clear decision, bring it here." />
+<meta property="og:title" content="Book a Clarity Call - Luminaries Summit 2026" />
+<meta property="og:description" content="15 minutes, one on one. No pressure, just space to ask." />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Cormorant:ital,wght@0,300..700;1,300..600&family=Cormorant+Unicase:wght@400;600;700&family=Azeret+Mono:wght@300;400;500&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="../assets/styles.css" />
+<link rel="stylesheet" href="../assets/clarity.css" />
+</head>
+<body class="page-clarity">
+<a class="skip" href="#form">Skip to the form</a>
+
+<header class="topbar topbar--clarity">
+  <a class="topbar__mark" href="../">Luminaries<span>Summit 2026</span></a>
+  <a class="btn btn--ghost btn--sm" href="#form">Book your clarity call</a>
+</header>
+
+<!-- ============================= HERO ============================= -->
+<section class="cl-hero">
+  <div class="wrap wrap--narrow">
+    <p class="eyebrow eyebrow--light">15 minutes · One on one</p>
+
+    <h1 class="cl-hero__title">
+      Let's have a conversation and help you make the decision
+    </h1>
+
+    <div class="rule rule--light" aria-hidden="true"><span class="rule__gem"></span></div>
+
+    <p class="cl-hero__intro">
+      Whatever's still sitting between you and a clear decision, bring it here.
+      A short call with someone from the Luminaries team, no pressure, just space to ask.
+    </p>
+
+    <a class="btn btn--ghost btn--light" href="#form">Book your clarity call</a>
+  </div>
+</section>
+
+<!-- ============================ COVERAGE ============================ -->
+<section class="cl-section">
+  <div class="wrap wrap--narrow">
+    <p class="eyebrow eyebrow--light">What we'll cover</p>
+
+    <ul class="cover">
+      <li>The purpose behind Luminaries, and whether it's the room for you</li>
+      <li>What your six days will actually look like</li>
+      <li>The resort, accommodation options, and what's included</li>
+      <li>Who you'll meet: headliners, facilitators, and the wider community</li>
+    </ul>
+  </div>
+</section>
+
+<!-- ============================== REEL ============================== -->
+<section class="cl-section cl-section--film">
+  <div class="wrap wrap--narrow">
+    <div class="reel">
+      <!-- Facade player: set data-video-src (mp4) or data-instagram, media loads on click. -->
+      <figure class="film film--reel" data-film data-video-src="" data-instagram="">
+        <div class="film__frame">
+          <img class="film__poster"
+               src="https://luminaries.earth/images/home-booking-hero.jpg"
+               alt="A member of the Luminaries team" loading="lazy" decoding="async" />
+          <button type="button" class="film__play" data-film-play hidden>
+            <span class="film__glyph" aria-hidden="true"></span>
+            <span class="film__playLabel">Play</span>
+            <span class="film__dur">0:45</span>
+          </button>
+          <p class="film__soon" data-film-soon>Reel lands soon</p>
+        </div>
+      </figure>
+
+      <div class="reel__copy">
+        <p class="eyebrow eyebrow--light">Who you'll be speaking with</p>
+        <h2 class="reel__title">A short hello, before we talk.</h2>
+        <p class="reel__text">
+          Forty five seconds with the person on the other end of the call. Sound
+          on if you can, but it works muted too.
+        </p>
+        <a class="reel__ig" href="https://www.instagram.com/luminaries.summit/" data-film-ig hidden>
+          Watch on Instagram
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================== FORM ============================== -->
+<section class="cl-section cl-section--form" id="form">
+  <div class="wrap wrap--narrow">
+    <p class="eyebrow eyebrow--light">Before you book</p>
+    <h2 class="cl-h2">A few things, first.</h2>
+    <p class="cl-intro">
+      Most questions are already answered in our
+      <a href="https://luminaries.earth/#faq">FAQs</a>. If yours isn't there,
+      this takes two minutes.
+    </p>
+
+    <!-- TODO: point action at the LeadConnector endpoint once the widget is provisioned. -->
+    <form class="cf" id="clarity-form" novalidate>
+
+      <div class="cf__step" data-step="1">
+        <div class="cf__grid">
+          <label class="cf__field">
+            <span class="cf__label">First name <b aria-hidden="true">*</b></span>
+            <input type="text" name="first-name" autocomplete="given-name" required />
+          </label>
+          <label class="cf__field">
+            <span class="cf__label">Last name <b aria-hidden="true">*</b></span>
+            <input type="text" name="last-name" autocomplete="family-name" required />
+          </label>
+        </div>
+
+        <div class="cf__grid">
+          <label class="cf__field">
+            <span class="cf__label">Email <b aria-hidden="true">*</b></span>
+            <input type="email" name="email" autocomplete="email" inputmode="email" required />
+          </label>
+          <label class="cf__field">
+            <span class="cf__label">WhatsApp number <b aria-hidden="true">*</b></span>
+            <input type="tel" name="whatsapp" autocomplete="tel" inputmode="tel"
+                   placeholder="+385 91 000 0000" pattern="[+0-9][0-9 ()\-]{6,}" required />
+          </label>
+        </div>
+        <p class="cf__hint">Include your country code. We'll send the call link here.</p>
+
+        <fieldset class="cf__group">
+          <legend class="cf__legend">
+            <span class="cf__num">1</span>
+            What's the one thing making you pause before booking Luminaries?
+            <b aria-hidden="true">*</b>
+          </legend>
+          <div class="opts">
+            <label class="opt"><input type="radio" name="pause" value="price" required /><span class="opt__box">The price</span></label>
+            <label class="opt"><input type="radio" name="pause" value="time" /><span class="opt__box">Taking the time away</span></label>
+            <label class="opt"><input type="radio" name="pause" value="people" /><span class="opt__box">I'm not sure it's "my kind of people"</span></label>
+            <label class="opt"><input type="radio" name="pause" value="logistics" /><span class="opt__box">Getting there / logistics</span></label>
+            <label class="opt"><input type="radio" name="pause" value="say-myself" /><span class="opt__box">Something else, I'd rather say myself</span></label>
+            <label class="opt"><input type="radio" name="pause" value="other" /><span class="opt__box">Other</span></label>
+          </div>
+        </fieldset>
+
+        <fieldset class="cf__group">
+          <legend class="cf__legend">
+            <span class="cf__num">2</span>
+            Which language would you prefer for the call?
+            <b aria-hidden="true">*</b>
+          </legend>
+          <div class="opts opts--pair">
+            <label class="opt"><input type="radio" name="language" value="en" required /><span class="opt__box">English</span></label>
+            <label class="opt"><input type="radio" name="language" value="hr" /><span class="opt__box">Croatian</span></label>
+          </div>
+        </fieldset>
+
+        <p class="cf__error" data-step-error hidden>Please complete the fields above to continue.</p>
+
+        <button type="button" class="btn btn--ghost btn--light btn--wide" data-continue>Continue</button>
+      </div>
+
+      <div class="cf__step" data-step="2" hidden>
+        <fieldset class="cf__group">
+          <legend class="cf__legend">
+            <span class="cf__num">3</span>
+            Is there anything you would like to add before the call?
+            <b aria-hidden="true">*</b>
+          </legend>
+          <label class="cf__field">
+            <span class="sr-only">Anything you would like to add</span>
+            <textarea name="notes" rows="5" required
+                      placeholder="The thing you'd want said out loud on the call."></textarea>
+          </label>
+        </fieldset>
+
+        <p class="cf__error" data-final-error hidden>Please add a short note before booking.</p>
+
+        <div class="cf__actions">
+          <button type="button" class="btn btn--ghost btn--light" data-back>Back</button>
+          <button type="submit" class="btn btn--ghost btn--light btn--gold">Book your clarity call</button>
+        </div>
+      </div>
+
+      <div class="cf__done" data-done hidden>
+        <p class="cf__doneGem" aria-hidden="true">&#9670;</p>
+        <h3 class="cf__doneTitle">Your call is requested.</h3>
+        <p>
+          We'll be in touch at <span data-done-email></span> with a time that suits you.
+          Nothing else needed from you right now.
+        </p>
+      </div>
+    </form>
+
+    <p class="cl-note">
+      Already answered in our <a href="https://luminaries.earth/#faq">FAQs</a>?
+      No need to book, go ahead and <a href="../#checkout">reserve your spot</a> instead.
+    </p>
+
+    <div class="wa">
+      <p class="wa__text">Rather not book a slot? Send us a message instead.</p>
+      <!-- TODO: confirm this number is WhatsApp enabled before launch. -->
+      <a class="btn btn--ghost btn--light wa__btn"
+         href="https://wa.me/385913332030?text=Hi%20Luminaries%2C%20I%20have%20a%20question%20about%20the%202026%20summit."
+         target="_blank" rel="noopener">
+        <span class="wa__glyph" aria-hidden="true"></span>
+        Chat on WhatsApp
+      </a>
+    </div>
+  </div>
+</section>
+
+<footer class="cl-footer">
+  <div class="wrap">
+    <p>Luminaries Summit <span class="gem">&#9670;</span> 21–27 September 2026 <span class="gem">&#9670;</span> Pine Beach Eco Resort, Croatia</p>
+  </div>
+</footer>
+
+<script src="../assets/clarity.js" defer></script>
+<script src="../assets/film.js" defer></script>
+</body>
+</html>
